@@ -1,47 +1,16 @@
+require "./intcode"
+
 module Advent2019_02
   extend self
-
-  private class VM
-    def initialize(memory : Array(Int32))
-      @pc = 0
-      @memory = memory
-    end
-
-    def mem0
-      @memory[0]
-    end
-
-    def next
-      opcode = @memory[@pc]
-      @pc += 4
-      opcode
-    end
-
-    def add
-      @memory[@memory[@pc - 1]] = @memory[@memory[@pc - 3]] + @memory[@memory[@pc - 2]]
-    end
-
-    def mul
-      @memory[@memory[@pc - 1]] = @memory[@memory[@pc - 3]] * @memory[@memory[@pc - 2]]
-    end
-  end
 
   private def parse(input)
     input.split(',').map { |n| n.to_i() }
   end
 
   private def run(memory)
-    vm = VM.new memory
-    opcode = vm.next
-
-    loop do
-      case opcode
-      when 1 then vm.add
-      when 2 then vm.mul
-      when 99 then break
-      end
-
-      opcode = vm.next
+    vm = Intcode.new(memory, 0)
+    while !vm.halted
+      vm.step
     end
 
     vm.mem0
