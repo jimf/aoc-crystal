@@ -1,3 +1,6 @@
+class IntcodeMissingInputError < Exception
+end
+
 class Intcode
   def initialize(memory : Array(Int32), input_values : Array(Int32))
     @pc = 0
@@ -61,8 +64,12 @@ class Intcode
   end
 
   private def input
-    @memory[param(1)] = @input_values.shift
-    @pc += 2
+    begin
+      @memory[param(1)] = @input_values.shift
+      @pc += 2
+    rescue IndexError
+      raise IntcodeMissingInputError.new
+    end
   end
 
   private def output
