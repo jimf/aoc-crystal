@@ -7,8 +7,8 @@ module Advent2019_05
     input.split(',').map { |n| n.to_i() }
   end
 
-  private def run(memory, input_value)
-    vm = Intcode.new(memory, input_value)
+  private def run(memory, input_values)
+    vm = Intcode.new(memory, input_values)
     while !vm.halted
       vm.step
     end
@@ -20,11 +20,11 @@ module Advent2019_05
     "2019 Day 5: Sunny with a Chance of Asteroids"
   end
 
-  def part1(input, input_value = 1)
-    run(parse(input), input_value)
+  def part1(input, input_values = [1])
+    run(parse(input), input_values)
   end
 
-  def part2(input, input_value = 5)
-    run(parse(input), input_value)
+  def part2(input, input_values = [5])
+    run(parse(input), input_values)
   end
 end

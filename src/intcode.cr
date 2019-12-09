@@ -1,8 +1,8 @@
 class Intcode
-  def initialize(memory : Array(Int32), input_value : Int32)
+  def initialize(memory : Array(Int32), input_values : Array(Int32))
     @pc = 0
     @memory = memory
-    @input_value = input_value
+    @input_values = input_values
     @outputs = [] of Int32
     @halted = false
   end
@@ -61,7 +61,7 @@ class Intcode
   end
 
   private def input
-    @memory[param(1)] = @input_value
+    @memory[param(1)] = @input_values.shift
     @pc += 2
   end
 

@@ -8,7 +8,7 @@ module Advent2019_02
   end
 
   private def run(memory)
-    vm = Intcode.new(memory, 0)
+    vm = Intcode.new(memory, [0])
     while !vm.halted
       vm.step
     end
