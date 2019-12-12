@@ -1,10 +1,6 @@
 module Advent2019_08
   extend self
 
-  private def parse(input)
-    input.split(',').map { |n| n.to_i }
-  end
-
   def name
     "2019 Day 8: Space Image Format"
   end
