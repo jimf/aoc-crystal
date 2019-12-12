@@ -2,34 +2,37 @@ class IntcodeMissingInputError < Exception
 end
 
 class Intcode
-  def initialize(memory : Array(Int32), input_values : Array(Int32))
-    @pc = 0
-    @rb = 0
+  @pc : Int64
+  @rb : Int64
+
+  def initialize(memory : Array(Int64), input_values : Array(Int64))
+    @pc = 0.to_i64
+    @rb = 0.to_i64
     @memory = memory
     @input_values = input_values
-    @outputs = [] of Int32
+    @outputs = [] of Int64
     @halted = false
   end
 
-  private def param(n)
+  private def param(n : Int64) : Int64
     mod = 100 * 10 ** n
     mode = (read_mem(@pc) % mod) // (mod / 10)
     case mode
     when 0 then read_mem @pc + n
     when 1 then read_mem @pc + n
     when 2 then @rb + read_mem(@pc + n)
-    else -1
+    else -1.to_i64
     end
   end
 
-  private def value(n)
+  private def value(n : Int64) : Int64
     mod = 100 * 10 ** n
     mode = (read_mem(@pc) % mod) // (mod / 10)
     case mode
     when 0 then read_mem param(n)
     when 1 then param(n)
     when 2 then read_mem param(n)
-    else -1
+    else -1.to_i64
     end
   end
 
@@ -60,10 +63,10 @@ class Intcode
     end
   end
 
-  private def read_mem(i)
+  private def read_mem(i) : Int64
     result = @memory[i]?
     if result.nil?
-      0
+      0.to_i64
     else
       result
     end
@@ -71,7 +74,7 @@ class Intcode
 
   private def write_mem(i, val)
     if i >= @memory.size
-      @memory += Array.new(i - @memory.size + 1, 0)
+      @memory += Array.new(i - @memory.size + 1, 0.to_i64)
     end
     @memory[i] = val
   end
@@ -122,11 +125,11 @@ class Intcode
   end
 
   private def less_than
-    binop { |a, b| a < b ? 1 : 0 }
+    binop { |a, b| a < b ? 1.to_i64 : 0.to_i64 }
   end
 
   private def equals
-    binop { |a, b| a == b ? 1 : 0 }
+    binop { |a, b| a == b ? 1.to_i64 : 0.to_i64 }
   end
 
   private def adjust_rel_base

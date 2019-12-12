@@ -4,7 +4,7 @@ module Advent2019_09
   extend self
 
   private def parse(input)
-    input.split(',').map { |n| n.to_i }
+    input.split(',').map { |n| n.to_i64 }
   end
 
   private def run(memory, input_values)
@@ -20,7 +20,7 @@ module Advent2019_09
     "2019 Day 9: Sensor Boost"
   end
 
-  def part1(input, input_values = [1])
+  def part1(input, input_values = [1.to_i64])
     run parse(input), input_values
   end
 
