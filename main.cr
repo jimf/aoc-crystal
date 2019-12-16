@@ -10,8 +10,9 @@ require "./src/advent2019_09.cr"
 require "./src/advent2019_10.cr"
 require "./src/advent2019_11.cr"
 require "./src/advent2019_12.cr"
+require "./src/advent2019_13.cr"
 
-mod = Advent2019_12
+mod = Advent2019_13
 
 if ARGV.size > 0
     arg = ARGV.shift
@@ -28,7 +29,8 @@ if ARGV.size > 0
           when "2019-10" then Advent2019_10
           when "2019-11" then Advent2019_11
           when "2019-12" then Advent2019_12
-          else Advent2019_12
+          when "2019-13" then Advent2019_13
+          else Advent2019_13
           end
 end
 

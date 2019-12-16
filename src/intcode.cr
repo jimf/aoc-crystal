@@ -36,6 +36,10 @@ class Intcode
     end
   end
 
+  def <<(value)
+    @input_values << value
+  end
+
   def outputs
     @outputs
   end
