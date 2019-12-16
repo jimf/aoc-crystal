@@ -25,6 +25,6 @@ module Advent2019_09
   end
 
   def part2(input)
-    nil
+    run parse(input), [2.to_i64]
   end
 end
