@@ -2,16 +2,24 @@ class IntcodeMissingInputError < Exception
 end
 
 class Intcode
-  @pc : Int64
-  @rb : Int64
+  protected property pc : Int64 = 0
+  protected property rb : Int64 = 0
+  protected property outputs
+  protected property halted = false
 
-  def initialize(memory : Array(Int64), input_values : Array(Int64))
-    @pc = 0.to_i64
-    @rb = 0.to_i64
+  def initialize(memory : Array(Int64), input_values = [] of Int64)
     @memory = memory
     @input_values = input_values
     @outputs = [] of Int64
-    @halted = false
+  end
+
+  def clone
+    vm = Intcode.new @memory, @input_values.clone
+    vm.pc = @pc
+    vm.rb = @rb
+    vm.outputs = @outputs.clone
+    vm.halted = @halted
+    vm
   end
 
   private def param(n : Int64) : Int64
@@ -48,7 +56,7 @@ class Intcode
     @memory[0]
   end
 
-  def halted
+  def halted?
     @halted
   end
 

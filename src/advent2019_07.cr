@@ -9,7 +9,7 @@ module Advent2019_07
 
   private def run(memory, input_values)
     vm = Intcode.new(memory, input_values)
-    while !vm.halted
+    while !vm.halted?
       vm.step
     end
 
@@ -43,11 +43,11 @@ module Advent2019_07
       amps = amp_inputs.map { |inputs| Intcode.new parse(input), inputs }
       active = 0
 
-      while !amps[4].halted
+      while !amps[4].halted?
         vm = amps[active % 5]
         prev_output_size = vm.outputs.size
 
-        while !vm.halted
+        while !vm.halted?
           begin
             vm.step
           rescue IntcodeMissingInputError

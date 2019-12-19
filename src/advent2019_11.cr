@@ -53,12 +53,12 @@ module Advent2019_11
     vm = Intcode.new parse(input), inputs
     robot = Turtle.new
 
-    while !vm.halted
+    while !vm.halted?
       pos = {robot.x, robot.y}
       inputs << board.fetch(pos, 0.to_i64)
       painted[pos] = painted.fetch(pos, 0) + 1
 
-      while !vm.halted
+      while !vm.halted?
         begin
           vm.step
         rescue IntcodeMissingInputError
@@ -89,12 +89,12 @@ module Advent2019_11
 
     board[{0, 0}] = 1.to_i64
 
-    while !vm.halted
+    while !vm.halted?
       pos = {robot.x, robot.y}
       inputs << board.fetch(pos, 0.to_i64)
       painted[pos] = painted.fetch(pos, 0) + 1
 
-      while !vm.halted
+      while !vm.halted?
         begin
           vm.step
         rescue IntcodeMissingInputError
