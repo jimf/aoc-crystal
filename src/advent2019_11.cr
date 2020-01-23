@@ -1,42 +1,8 @@
 require "./intcode.cr"
+require "./turtle.cr"
 
 module Advent2019_11
   extend self
-
-  private class Turtle
-    getter x : Int32
-    getter y : Int32
-
-    def initialize
-      @x = 0
-      @y = 0
-      @angle = 0
-    end
-
-    def right
-      @angle = (@angle + 90) % 360
-    end
-
-    def left
-      3.times do
-        right
-      end
-    end
-
-    def forward
-      case @angle
-      when 0
-        @y -= 1
-      when 90
-        @x += 1
-      when 180
-        @y += 1
-      when 270
-        @x -= 1
-      end
-    end
-  end
-
 
   private def parse(input)
     input.split(',').map { |n| n.to_i64 }
